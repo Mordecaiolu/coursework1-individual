@@ -32,7 +32,11 @@
                 v-show='canAddToCart'>
                 Add to cart
                  </button> -->
-
+                 <button v-on:click='addToCart(product)' v-if='canAddToCart(product)'>Add to cart</button>
+                 <button disabled="disabled" v-else>Add to cart</button>
+             </div>
+         </div> 
+         
                 
         })
     </script> 
