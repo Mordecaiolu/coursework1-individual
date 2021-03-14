@@ -55,8 +55,33 @@
        </main>
    </div>
 
-   
-                
+   <script type="text/javascript">
+    var webstore = new Vue({
+        el: '#app' ,
+        data: {
+            sitename: 'After School Lessons',
+            products: products,
+            product: {
+                id:1001 ,
+                subject: "English",
+                location: "Abuja",
+                price: 5000,
+                availableInventory:5,
+                image: "images/maths1.jpg"
+
+            },
+            cart: [],
+            showProduct: true,
+            order: {
+                name: '',
+                number: '',
+            },
+        },
+        // created: function () {
+        //     this.products = allProducts
+        // },
+        
+              
         })
     </script> 
 </body>
