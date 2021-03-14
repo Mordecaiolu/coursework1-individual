@@ -48,7 +48,7 @@
             </p>
 
             <h2>Order Information</h2>
-            <p>Name: {{order.name}}</p>
+            <p>Your Name: {{order.name}}</p>
             <p>Phone Number: {{order.number}}</p>
             <button v-on:click="submitForm">Sign up</button>
         </div>  
@@ -89,8 +89,14 @@
                 // console.log(this.showProduct);
                 this.showProduct = this.showProduct ? false : true;
             },
+        removeItemFromCart(product) {
+                this.cart.slice(this.cart.index(product))
+            },
+            submitForm() {
+                alert('Order submitted!')
+            },
         }
-        
+              
         });
     </script> 
 </body>
