@@ -36,7 +36,26 @@
                  <button disabled="disabled" v-else>Add to cart</button>
              </div>
          </div> 
-         
+         <div v-else>
+            <h2>Checkout</h2>
+            <p>
+                <strong>Name:</strong>
+                <input v-model.trim="order.name" type="text" name="name"/>
+            </p>
+            <p>
+               <strong>Phone Number:</strong>
+               <input v-model.trim="order.number"  type="number"/>
+            </p>
+
+            <h2>Order Information</h2>
+            <p>Name: {{order.name}}</p>
+            <p>Phone Number: {{order.number}}</p>
+            <button v-on:click="submitForm">Sign up</button>
+        </div>  
+       </main>
+   </div>
+
+   
                 
         })
     </script> 
