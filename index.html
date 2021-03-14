@@ -26,7 +26,7 @@
                  </figure>
                  <p>Location: {{product.location}}</p>
                  <p>Price: {{product.price}}</p>
-                 <p>Spaces: {{product.availableInventory}}</p>
+                 <p>Spaces: {{product.availableInventory - cartItemCount}}</p>
 
                  <!--<button v-on:click="addToCart"
                 v-show='canAddToCart'>
@@ -112,8 +112,8 @@
             cartItemCount() {
                 return this.cart.length;
             },
-            canAddToCart(product) {
-                 return product.availableInventory > this.cartItemCount;
+            canAddToCart: function(product) {
+                 return this.product.availableInventory > this.cartItemCount;
              },
              sortedProducts() {
                 let productsArray = this.products.slice(0);
