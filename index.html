@@ -80,9 +80,18 @@
         // created: function () {
         //     this.products = allProducts
         // },
+        methods: {
+            addToCart(product) {
+                this.cart.push(product.id);
+                // console.log('adding to cart', product.id)
+            },
+            showCheckout() {
+                // console.log(this.showProduct);
+                this.showProduct = this.showProduct ? false : true;
+            },
+        }
         
-              
-        })
+        });
     </script> 
 </body>
 </html>
