@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+   
+<head>
+    <title>After School Lessons</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="products.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <h1 v-text="sitename"></h1>
+            <button v-on:click='showCheckout'>
+                {{cartItemCount}}
+                <span class="fas fa-cart-plus"></span>Cart 
+            </button>
+        </header>
+        <main>
+         <div v-if='showProduct'>
+             <div v-for="product in sortedProducts">
+                 <h2 v-text="product.subject"> </h2>
+                 <figure>
+                     <img v-bind:src="product.image" width="250" height="200">
+                 </figure>
+                 <p>Location: {{product.location}}</p>
+                 <p>Price: {{product.price}}</p>
+                 <p>Spaces: {{product.availableInventory}}</p>
+
+                 <!--<button v-on:click="addToCart"
+                v-show='canAddToCart'>
+                Add to cart
+                 </button> -->
+
+                
+        })
+    </script> 
+</body>
+</html>
