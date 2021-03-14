@@ -108,7 +108,14 @@
                 return count;
             }
         },
-        
+        computed: {
+            cartItemCount() {
+                return this.cart.length;
+            },
+            canAddToCart(product) {
+                 return product.availableInventory > this.cartItemCount;
+             },
+            }
         });
     </script> 
 </body>
