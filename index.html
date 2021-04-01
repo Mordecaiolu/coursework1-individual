@@ -86,6 +86,126 @@
                                         class="fas fa-minus-square" aria-hidden="true">
                                     </button></div>
                                </div>
-                              
+                             <div v-if="cart.length > 0" cart="cart__item"
+                                   style="background-color: tan; padding: 20px;">
+                                   <div style="text-align: center; color: wheat; font-size: 20px; font-weight: bold;">
+                                   Empty list</div>
+                               </div>
+                           </div>
+                           <hr>
+                           <div>
+                               <h3>Student Details</h3>
+                               <form @submit.prevent="submit">
+                                   <div>
+                                     <label for="name">Your Name</label>  
+                                     <input v-model="student.name" type="text" required>
+                                   </div>
+                                   <div>
+                                       <label for="name">Phone number</label>
+                                       <input v-model="student.number" type="tel" required>
+                                   </div>
+                                   <input type="submit" value="checkout">
+                               </form>
+                           </div>
+                       </div>
+                  </div>  
+                 </main>
+               </div>
+            </div>
+      </div>
+   
+      <script type="text/javascript">
+       var webstore = new Vue({
+           el: '#app' ,
+           data: {
+               sitename: 'After School Lessons',
+               lessons: [],
+               cart: [],
+               
+               showProduct: true,
+               
+               order: {
+                   name: '',
+                   number: '',
+               },
+               sort: 'ascending',
+               type: '',
+               student: {
+                   name: '',
+                   number: ''
+               }
+           },
+           
+           methods: {
+               addToCart(lesson) {
+                   this.lessons.find(item => item.id == lesson.id).availableInventory -=1;
+                   this.cart.push({ cartId: (this.cart.length + 1), lesson });
+                   // console.log('adding to cart', lesson.id)
+               },
+               removeToCart(lesson) {
+                   if (confirm('You are about to delete this!')) {
+                     this.cart = [...this.cart].filter(item.cartId != lesson.cartId)  
+                   }
+               },
+               showCheckout() {
+                   // console.log(this.showlesson);
+                   this.showProduct = this.showProduct;
+               },
+               submitForm() {
+                   if (this.phonenumber(this.student.number)) {
+                       alert('Order has been submitted!')
+                       console.log(this.user);
+                   }
+               },
+               phonenumber(number) {
+                   if ((number.match(phoneno))) {
+                       return true;
+                   }
+               },
+           },
+           computed: {
+              total() {
+                  return this.cart.length > 0 ? this.cart.map(item => item.price).reduce((acc, cur) => acc + cur) : 0;
+              },
+              sortedLessons() {
+                  switch (this.type) {
+                      case 'subject':
+                          return this.lessons.sort((a, b) => {
+                              switch (this.sort) {
+                                  case 'ascending':
+                                      return a.subject.toUpperCase() > b.subject.toUpperCase() ? 1 : -1;
+                                   default:
+                                       return a.subject.toUpperCase() > b.subject.toUpperCase() ? 1 : -1;
+                              }
+                          })
+                       case 'location':
+                              return this.lessons.sort((a, b) => {
+                                  switch (this.sort) {
+                                      case 'ascending':
+                                      return a.location.toUpperCase() > b.location.toUpperCase() ? 1 : -1;
+                                   default:
+                                      return a.location.toUpperCase() > b.location.toUpperCase() ? 1 : -1;
+                                  }
+                              })
+                       case 'price':
+                           return this.lessons.sort((a, b) => {
+                               return this.sort == 'ascending' ? a.price - b.price : b.price - a.price;
+                           })
+                       case 'space':
+                           return this.lessons.sort((a, b) => {
+                               return this.sort == 'ascending' ? a.availableInventory - b.availableInventory : b.availableInventory - a.availableInventory;
+                           })
+                       default:
+                       return this.lessons.sort((a, b) => {
+                           return this.sort == 'ascending' ? a.id - b.id : b.id - a.id;
+                       })
+                  }
+              }
+           },
+           created() {
+               this.lessons = lessons
+           }      
+           });
+    </script>   
 </body>
 </html>
