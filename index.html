@@ -5,131 +5,32 @@
     <title>After School Lessons</title>
     <script src="https://unpkg.com/vue"></script>
     <script src="products.js"></script>
+    <link rel="stylesheet" href="design.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 
 <body>
     <div id="app">
+        
         <header>
             <h1 v-text="sitename"></h1>
-            <button v-on:click='showCheckout'>
+            <button v-if="cart.length > 0" v-on:click='showCheckout'>
                 {{cartItemCount}}
                 <span class="fas fa-cart-plus"></span>Cart 
             </button>
         </header>
-        <main>
-         <div v-if='showProduct'>
-             <div v-for="product in sortedProducts">
-                 <h2 v-text="product.subject"> </h2>
-                 <figure>
-                     <img v-bind:src="product.image" width="250" height="200">
-                 </figure>
-                 <p>Location: {{product.location}}</p>
-                 <p>Price: {{product.price}}</p>
-                 <p>Spaces: {{product.availableInventory - cartItemCount}}</p>
-
-                 <!--<button v-on:click="addToCart"
-                v-show='canAddToCart'>
-                Add to cart
-                 </button> -->
-                 <button v-on:click='addToCart(product)' v-if='canAddToCart(product)'>Add to cart</button>
-                 <button disabled="disabled" v-else>Add to cart</button>
-             </div>
-         </div> 
-         <div v-else>
-            <h2>Checkout</h2>
-            <p>
-                <strong>Name:</strong>
-                <input v-model.trim="order.name" type="text" name="name"/>
-            </p>
-            <p>
-               <strong>Phone Number:</strong>
-               <input v-model.trim="order.number"  type="number"/>
-            </p>
-
-            <h2>Order Information</h2>
-            <p>Your Name: {{order.name}}</p>
-            <p>Phone Number: {{order.number}}</p>
-            <button v-on:click="submitForm">Sign up</button>
-        </div>  
-       </main>
-   </div>
-
-   <script type="text/javascript">
-    var webstore = new Vue({
-        el: '#app' ,
-        data: {
-            sitename: 'After School Lessons',
-            products: products,
-            product: {
-                id:101,
-                subject: "Art",
-                location: "Abuja",
-                price: 500,
-                availableInventory:5,
-                image: "images/art.jpg"
-
-            },
-            cart: [],
-            showProduct: true,
-            order: {
-                name: '',
-                number: '',
-            },
-        },
-        // created: function () {
-        //     this.products = allProducts
-        // },
-        methods: {
-            addToCart(product) {
-                this.cart.push(product.id);
-                // console.log('adding to cart', product.id)
-            },
-            showCheckout() {
-                // console.log(this.showProduct);
-                this.showProduct = this.showProduct ? false : true;
-            },
-        removeItemFromCart(product) {
-                this.cart.slice(this.cart.index(product))
-            },
-            submitForm() {
-                alert('Order submitted!')
-            },
-            canAddToCart(product) {
-                return product.availableInventory > this.cartCount(product.id);
-            },
-            cartCount(id) {
-                let count = 0;
-                for (let i = 0; i < this.cart.length; i++) {
-                    if (this.cart[i] === id) {
-                        count++;
-                    }
-                }
-                return count;
-            }
-        },
-        computed: {
-            cartItemCount() {
-                return this.cart.length;
-            },
-            canAddToCart: function(product) {
-                 return this.product.availableInventory > this.cartItemCount;
-             },
-             sortedProducts() {
-                let productsArray = this.products.slice(0);
-                function compare(a, b) {
-                    if (a.price > b.price)
-                        return 1;
-                    if (a.price < b.price)
-                        return -1;
-                    return 0;
-                }
-                return productsArray.sort(compare);
-                return this.products.sort(compare)
-            },
-        },
-              
-        });
+        
+        <div class="container">
+            <div class="root">
+                <aside>
+                    <h4>Sort by</h4>
+                    <ul>
+                        <li><button v-on:click="type = 'subject'">Subject</button></li>
+                        <li><button v-on:click="type = 'price'">Price</button></li>
+                        <li><button v-on:click="type = 'location'">Location</button></li>
+                    </ul>
+                </aside>
+             
     </script> 
 </body>
 </html>
